@@ -17,7 +17,6 @@ namespace DatabaseFirstDemoLazyLoading
                                                     .People
                                                     .Include(p => p.Courses.Select(c => c.StudentGrades))
                                                   //.Include("Courses.StudentGrades")
-                                         //where p.FirstName == "Carson"
                                          select p)
                 {
                     Console.WriteLine(person.FirstName + " "  + person.LastName);
