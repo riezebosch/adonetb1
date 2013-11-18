@@ -7,17 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DatabaseFirstDemo
+namespace DatabaseFirstDemoLazyLoading
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class OfficeAssignment
+    public partial class Instructor : Person
     {
-        public int InstructorID { get; set; }
+        public Instructor()
+        {
+            this.Courses = new HashSet<Course>();
+        }
+    
         public string Location { get; set; }
         public byte[] Timestamp { get; set; }
     
-        public virtual Person Person { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
     }
 }

@@ -7,7 +7,6 @@
       <Diagram DiagramId="ad656ffe50ae488998e15c0c82d7d516" Name="Diagram1">
         <EntityTypeShape EntityType="SchoolModel.Course" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.Department" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolModel.OfficeAssignment" Width="1.5" PointX="7.5" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.OnlineCourse" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.OnsiteCourse" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolModel.Person" Width="1.5" PointX="5.25" PointY="7.875" IsExpanded="true" />
@@ -16,9 +15,10 @@
         <AssociationConnector Association="SchoolModel.FK_OnlineCourse_Course" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_OnsiteCourse_Course" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_StudentGrade_Course" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.FK_OfficeAssignment_Person" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolModel.FK_StudentGrade_Student" ManuallyRouted="false" />
-        <AssociationConnector Association="SchoolModel.CourseInstructor" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SchoolModel.Instructor" Width="1.5" PointX="7.5" PointY="9.875" />
+        <AssociationConnector Association="SchoolModel.InstructorCourse" />
+        <InheritanceConnector EntityType="SchoolModel.Instructor" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

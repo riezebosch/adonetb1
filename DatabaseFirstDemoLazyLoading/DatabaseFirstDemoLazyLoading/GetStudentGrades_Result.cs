@@ -10,14 +10,12 @@
 namespace DatabaseFirstDemoLazyLoading
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class OfficeAssignment
+    public partial class GetStudentGrades_Result
     {
-        public int InstructorID { get; set; }
-        public string Location { get; set; }
-        public byte[] Timestamp { get; set; }
-    
-        public virtual Person Person { get; set; }
+        public int EnrollmentID { get; set; }
+        public Nullable<decimal> Grade { get; set; }
+        public int CourseID { get; set; }
+        public int StudentID { get; set; }
     }
 }

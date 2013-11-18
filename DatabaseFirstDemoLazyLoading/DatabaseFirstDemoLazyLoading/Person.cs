@@ -17,7 +17,6 @@ namespace DatabaseFirstDemoLazyLoading
         public Person()
         {
             this.StudentGrades = new HashSet<StudentGrade>();
-            this.Courses = new HashSet<Course>();
         }
     
         public int PersonID { get; set; }
@@ -26,8 +25,6 @@ namespace DatabaseFirstDemoLazyLoading
         public Nullable<System.DateTime> HireDate { get; set; }
         public Nullable<System.DateTime> EnrollmentDate { get; set; }
     
-        public virtual OfficeAssignment OfficeAssignment { get; set; }
         public virtual ICollection<StudentGrade> StudentGrades { get; set; }
-        public virtual ICollection<Course> Courses { get; set; }
     }
 }

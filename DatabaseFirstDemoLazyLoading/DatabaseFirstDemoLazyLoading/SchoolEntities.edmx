@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="SchoolModelStoreContainer">
           <EntitySet Name="Course" EntityType="SchoolModel.Store.Course" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="CourseInstructor" EntityType="SchoolModel.Store.CourseInstructor" store:Type="Tables" Schema="dbo" />
@@ -213,15 +213,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="GetStudentGrades" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StudentID" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="SchoolEntities" p1:LazyLoadingEnabled="false">
+        <EntityContainer Name="SchoolEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="SchoolModel.Course" />
           <EntitySet Name="Departments" EntityType="SchoolModel.Department" />
-          <EntitySet Name="OfficeAssignments" EntityType="SchoolModel.OfficeAssignment" />
           <EntitySet Name="OnlineCourses" EntityType="SchoolModel.OnlineCourse" />
           <EntitySet Name="OnsiteCourses" EntityType="SchoolModel.OnsiteCourse" />
           <EntitySet Name="People" EntityType="SchoolModel.Person" />
@@ -242,17 +243,16 @@
             <End Role="Course" EntitySet="Courses" />
             <End Role="StudentGrade" EntitySet="StudentGrades" />
           </AssociationSet>
-          <AssociationSet Name="FK_OfficeAssignment_Person" Association="SchoolModel.FK_OfficeAssignment_Person">
-            <End Role="Person" EntitySet="People" />
-            <End Role="OfficeAssignment" EntitySet="OfficeAssignments" />
-          </AssociationSet>
           <AssociationSet Name="FK_StudentGrade_Student" Association="SchoolModel.FK_StudentGrade_Student">
             <End Role="Person" EntitySet="People" />
             <End Role="StudentGrade" EntitySet="StudentGrades" />
           </AssociationSet>
-          <AssociationSet Name="CourseInstructor" Association="SchoolModel.CourseInstructor">
+          <FunctionImport Name="GetStudentGrades" EntitySet="StudentGrades" ReturnType="Collection(SchoolModel.StudentGrade)">
+            <Parameter Name="StudentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <AssociationSet Name="InstructorCourse" Association="SchoolModel.InstructorCourse">
+            <End Role="Instructor" EntitySet="People" />
             <End Role="Course" EntitySet="Courses" />
-            <End Role="Person" EntitySet="People" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Course">
@@ -267,7 +267,7 @@
           <NavigationProperty Name="OnlineCourse" Relationship="SchoolModel.FK_OnlineCourse_Course" FromRole="Course" ToRole="OnlineCourse" />
           <NavigationProperty Name="OnsiteCourse" Relationship="SchoolModel.FK_OnsiteCourse_Course" FromRole="Course" ToRole="OnsiteCourse" />
           <NavigationProperty Name="StudentGrades" Relationship="SchoolModel.FK_StudentGrade_Course" FromRole="Course" ToRole="StudentGrade" />
-          <NavigationProperty Name="People" Relationship="SchoolModel.CourseInstructor" FromRole="Course" ToRole="Person" />
+          <NavigationProperty Name="Instructor" Relationship="SchoolModel.InstructorCourse" FromRole="Course" ToRole="Instructor" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -279,15 +279,6 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Administrator" Type="Int32" />
           <NavigationProperty Name="Courses" Relationship="SchoolModel.FK_Course_Department" FromRole="Department" ToRole="Course" />
-        </EntityType>
-        <EntityType Name="OfficeAssignment">
-          <Key>
-            <PropertyRef Name="InstructorID" />
-          </Key>
-          <Property Name="InstructorID" Type="Int32" Nullable="false" />
-          <Property Name="Location" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Timestamp" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Person" Relationship="SchoolModel.FK_OfficeAssignment_Person" FromRole="OfficeAssignment" ToRole="Person" />
         </EntityType>
         <EntityType Name="OnlineCourse">
           <Key>
@@ -316,9 +307,7 @@
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="HireDate" Type="DateTime" Precision="3" />
           <Property Name="EnrollmentDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="OfficeAssignment" Relationship="SchoolModel.FK_OfficeAssignment_Person" FromRole="Person" ToRole="OfficeAssignment" />
           <NavigationProperty Name="StudentGrades" Relationship="SchoolModel.FK_StudentGrade_Student" FromRole="Person" ToRole="StudentGrade" />
-          <NavigationProperty Name="Courses" Relationship="SchoolModel.CourseInstructor" FromRole="Person" ToRole="Course" />
         </EntityType>
         <EntityType Name="StudentGrade">
           <Key>
@@ -379,18 +368,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OfficeAssignment_Person">
-          <End Role="Person" Type="SchoolModel.Person" Multiplicity="1" />
-          <End Role="OfficeAssignment" Type="SchoolModel.OfficeAssignment" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Person">
-              <PropertyRef Name="PersonID" />
-            </Principal>
-            <Dependent Role="OfficeAssignment">
-              <PropertyRef Name="InstructorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StudentGrade_Student">
           <End Role="Person" Type="SchoolModel.Person" Multiplicity="1" />
           <End Role="StudentGrade" Type="SchoolModel.StudentGrade" Multiplicity="*" />
@@ -403,9 +380,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CourseInstructor">
-          <End Role="Course" Type="SchoolModel.Course" Multiplicity="*" />
-          <End Role="Person" Type="SchoolModel.Person" Multiplicity="*" />
+        <ComplexType Name="GetStudentGrades_Result">
+          <Property Type="Int32" Name="EnrollmentID" Nullable="false" />
+          <Property Type="Decimal" Name="Grade" Nullable="true" Precision="3" Scale="2" />
+          <Property Type="Int32" Name="CourseID" Nullable="false" />
+          <Property Type="Int32" Name="StudentID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Instructor" BaseType="SchoolModel.Person">
+          <Property Type="String" Name="Location" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Timestamp" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Courses" Relationship="SchoolModel.InstructorCourse" FromRole="Instructor" ToRole="Course" />
+        </EntityType>
+        <Association Name="InstructorCourse">
+          <End Type="SchoolModel.Instructor" Role="Instructor" Multiplicity="*" />
+          <End Type="SchoolModel.Course" Role="Course" Multiplicity="*" />
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -434,15 +422,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OfficeAssignments">
-            <EntityTypeMapping TypeName="SchoolModel.OfficeAssignment">
-              <MappingFragment StoreEntitySet="OfficeAssignment">
-                <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OnlineCourses">
             <EntityTypeMapping TypeName="SchoolModel.OnlineCourse">
               <MappingFragment StoreEntitySet="OnlineCourse">
@@ -462,13 +441,20 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="SchoolModel.Person">
+            <EntityTypeMapping TypeName="IsTypeOf(SchoolModel.Person)">
               <MappingFragment StoreEntitySet="Person">
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
                 <ScalarProperty Name="EnrollmentDate" ColumnName="EnrollmentDate" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(SchoolModel.Instructor)">
+              <MappingFragment StoreEntitySet="OfficeAssignment">
+                <ScalarProperty Name="PersonID" ColumnName="InstructorID" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -482,12 +468,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CourseInstructor" TypeName="SchoolModel.CourseInstructor" StoreEntitySet="CourseInstructor">
+          <FunctionImportMapping FunctionImportName="GetStudentGrades" FunctionName="SchoolModel.Store.GetStudentGrades">
+          </FunctionImportMapping>
+          <AssociationSetMapping Name="InstructorCourse" TypeName="SchoolModel.InstructorCourse" StoreEntitySet="CourseInstructor">
+            <EndProperty Name="Instructor">
+              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+            </EndProperty>
             <EndProperty Name="Course">
               <ScalarProperty Name="CourseID" ColumnName="CourseID" />
-            </EndProperty>
-            <EndProperty Name="Person">
-              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>
@@ -498,7 +486,7 @@
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="CopyToOutputDirectory" />
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
     </Connection>
     <Options>

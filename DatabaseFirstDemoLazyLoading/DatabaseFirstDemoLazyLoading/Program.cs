@@ -13,23 +13,45 @@ namespace DatabaseFirstDemoLazyLoading
         {
             using (var entities = new SchoolEntities())
             {
-                foreach (var person in from p in entities
-                                                    .People
-                                                    .Include(p => p.Courses.Select(c => c.StudentGrades))
-                                                  //.Include("Courses.StudentGrades")
-                                         select p)
+                foreach (var person in entities.People.Include(p => p.StudentGrades.Select(g => g.Course)))
                 {
-                    Console.WriteLine(person.FirstName + " "  + person.LastName);
+                    Console.WriteLine("{0} {1}", person.FirstName, person.LastName);
+                    if (person is Instructor)
+                    {
+                        Console.WriteLine("-- also instructor");
+                    }
+
+                    foreach (var grade in person.StudentGrades)
+                    {
+                        Console.WriteLine("  {0}", grade.Course.Title);
+                    }
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("-- instructors");
+                foreach (var person in entities.People.OfType<Instructor>().Include(p => p.Courses))
+                {
+                    Console.WriteLine("{0} {1}", person.FirstName, person.LastName);
+
                     foreach (var course in person.Courses)
                     {
-                        Console.WriteLine("  " + course.Title);
-                        foreach (var grade in course.StudentGrades)
-                        {
-                            Console.WriteLine("    " + grade.Grade);
-                        }
+                        Console.WriteLine("  {0}", course.Title);
                     }
                 }
             }
+
+            //using (var entities =  new SchoolEntities())
+            //{
+            //    entities.People.Add(new Person
+            //    {
+            //        FirstName = "Manuel",
+            //        LastName = "Riezebosch",
+            //        HireDate = new DateTime(2007, 03, 01),
+            //        Location = "Veenendaal",
+            //    });
+
+            //    entities.SaveChanges();
+            //}
         }
     }
 }
