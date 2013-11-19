@@ -34,6 +34,9 @@ namespace LinqLambdasEtcDemo
 
             var result = people.Where(p => p.Age > 4).Select(p => p.Name);
             result.Print();
+
+            var result2 = Enumerable.Select(Enumerable.Where(people, p => p.Age > 4), p => p.Name);
+            MyExtensionMethods.Print(result2);
         }
     }
 }

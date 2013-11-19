@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace LinqLambdasEtcDemo
 {
@@ -205,6 +206,19 @@ namespace LinqLambdasEtcDemo
         private static void ExecuteExpression(Expression<Action<int>> m)
         {
             m.Compile()(13);
+        }
+
+        [TestMethod]
+        public void DeferredExecution()
+        {
+            int[] input = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+            IEnumerable<int> query = input.Where(i => i % 2 == 0).ToList();
+            
+
+            query.Print();
+            input[1] = 3;
+
+            query.Print();
         }
     }
 }
