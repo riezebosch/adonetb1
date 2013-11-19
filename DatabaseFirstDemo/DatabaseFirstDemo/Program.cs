@@ -36,7 +36,7 @@ namespace DatabaseFirstDemo
                 sw.Restart();
                 var query = from p in entities.People
                             where p.FirstName == "Peggy"
-                            select p.FirstName + " " + p.LastName;
+                            select p.FirstName + " " + p.LastNogWatName;
 
                 foreach (var name in query)
                 {
@@ -48,7 +48,7 @@ namespace DatabaseFirstDemo
                 sw.Restart();
                 var query2 = from p in entities.People
                             where p.FirstName == "Peggy"
-                            select p.FirstName + " " + p.LastName;
+                            select p.FirstName + " " + p.LastNogWatName;
 
                 foreach (var name in query2)
                 {

@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SchoolEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="SchoolEntities.Views.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SchoolEntities.Views.tt</DependentUpon>
+    </Compile>
     <Compile Include="StudentGrade.cs">
       <DependentUpon>SchoolEntities.tt</DependentUpon>
     </Compile>
@@ -106,6 +111,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SchoolEntities.edmx</DependentUpon>
       <LastGenOutput>SchoolEntities.cs</LastGenOutput>
+    </None>
+    <None Include="SchoolEntities.Views.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SchoolEntities.Views.cs</LastGenOutput>
+      <DependentUpon>SchoolEntities.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
