@@ -68,13 +68,26 @@
     <Compile Include="Migrations\201311201445467_OmschrijvingMaxLength.Designer.cs">
       <DependentUpon>201311201445467_OmschrijvingMaxLength.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311201447498_Omschrijving2.cs" />
+    <Compile Include="Migrations\201311201447498_Omschrijving2.Designer.cs">
+      <DependentUpon>201311201447498_Omschrijving2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MijnContext.Views.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MijnContext.Views.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="MijnContext.Views.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MijnContext.Views.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201311201345470_InitialCreate.resx">
@@ -91,6 +104,17 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201311201445467_OmschrijvingMaxLength.resx">
       <DependentUpon>201311201445467_OmschrijvingMaxLength.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201311201447498_Omschrijving2.resx">
+      <DependentUpon>201311201447498_Omschrijving2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MijnContext.Views.xml">
+      <DependentUpon>MijnContext.Views.tt</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
