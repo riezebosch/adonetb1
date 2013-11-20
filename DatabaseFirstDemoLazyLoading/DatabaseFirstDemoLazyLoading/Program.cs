@@ -13,7 +13,7 @@ namespace DatabaseFirstDemoLazyLoading
         {
             using (var entities = new SchoolEntities())
             {
-                foreach (var person in entities.People.Include(p => p.StudentGrades.Select(g => g.Course)).Where()
+                foreach (var person in entities.People.Include(p => p.StudentGrades.Select(g => g.Course)))
                 {
                     Console.WriteLine("{0} {1}", person.FirstName, person.LastName);
                     if (person is Instructor)
