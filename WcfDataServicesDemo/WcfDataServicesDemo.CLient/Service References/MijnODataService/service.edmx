@@ -1,0 +1,37 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="WcfDataServicesDemo" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="Persoon">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Naam" Type="Edm.String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        <Property Name="Geboortedatum" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Email" Type="Edm.String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        <NavigationProperty Name="Producten" Relationship="WcfDataServicesDemo.Product_Klanten" ToRole="Product_Klanten_Source" FromRole="Product_Klanten_Target" />
+      </EntityType>
+      <EntityType Name="Product">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" p6:StoreGeneratedPattern="Identity" xmlns:p6="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
+        <Property Name="Omschrijving2" Type="Edm.String" MaxLength="500" FixedLength="false" Unicode="true" />
+        <Property Name="Prijs" Type="Edm.Decimal" Nullable="false" Precision="18" Scale="2" />
+        <NavigationProperty Name="Klanten" Relationship="WcfDataServicesDemo.Product_Klanten" ToRole="Product_Klanten_Target" FromRole="Product_Klanten_Source" />
+      </EntityType>
+      <Association Name="Product_Klanten">
+        <End Type="WcfDataServicesDemo.Product" Role="Product_Klanten_Source" Multiplicity="*" />
+        <End Type="WcfDataServicesDemo.Persoon" Role="Product_Klanten_Target" Multiplicity="*" />
+      </Association>
+      <EntityContainer Name="MijnContext" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Personen" EntityType="WcfDataServicesDemo.Persoon" />
+        <EntitySet Name="Producten" EntityType="WcfDataServicesDemo.Product" />
+        <AssociationSet Name="Product_Klanten" Association="WcfDataServicesDemo.Product_Klanten">
+          <End Role="Product_Klanten_Target" EntitySet="Personen" />
+          <End Role="Product_Klanten_Source" EntitySet="Producten" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>
