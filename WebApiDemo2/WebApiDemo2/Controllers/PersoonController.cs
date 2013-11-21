@@ -14,6 +14,10 @@ namespace WebApiDemo2.Controllers
     public class PersoonController : ApiController
     {
         private MijnContext db = new MijnContext();
+        public PersoonController()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+        }
 
         // GET api/Persoon
         public IEnumerable<Persoon> GetPersoons()
@@ -24,7 +28,11 @@ namespace WebApiDemo2.Controllers
         // GET api/Persoon/5
         public Persoon GetPersoon(int id)
         {
-            Persoon persoon = db.Personen.Find(id);
+            Persoon persoon = db
+                .Personen
+                .Include(p => p.Producten)
+                .SingleOrDefault(p => p.Id == id);
+
             if (persoon == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));

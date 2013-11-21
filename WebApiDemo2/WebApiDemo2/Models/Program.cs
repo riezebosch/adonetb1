@@ -44,7 +44,7 @@ namespace WebApiDemo2
         public MijnContext() 
             : base("name=MijnContext")
         {
-
+            Configuration.LazyLoadingEnabled = false;
         }
 
         public DbSet<Persoon> Personen { get; set; }
