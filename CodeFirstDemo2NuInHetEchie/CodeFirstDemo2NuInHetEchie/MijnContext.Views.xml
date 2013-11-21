@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<views MappingHash="0ed246cddab2b3e45ac4f671b427c091a0ac50379a78271ab9be6a39b262995a">
+  <view extent="CodeFirstDatabase.Persoon"><![CDATA[
+    SELECT VALUE -- Constructing Persoon
+        [CodeFirstDatabaseSchema.Persoon](T1.Persoon_Id, T1.Persoon_Naam, T1.Persoon_Geboortedatum, T1.Persoon_Email)
+    FROM (
+        SELECT 
+            T.Id AS Persoon_Id, 
+            T.Naam AS Persoon_Naam, 
+            T.Geboortedatum AS Persoon_Geboortedatum, 
+            T.Email AS Persoon_Email, 
+            True AS _from0
+        FROM MijnContext.Personen AS T
+    ) AS T1]]></view>
+  <view extent="CodeFirstDatabase.Product"><![CDATA[
+    SELECT VALUE -- Constructing Product
+        [CodeFirstDatabaseSchema.Product](T1.Product_Id, T1.Product_Omschrijving2, T1.Product_Prijs)
+    FROM (
+        SELECT 
+            T.Id AS Product_Id, 
+            T.Omschrijving2 AS Product_Omschrijving2, 
+            T.Prijs AS Product_Prijs, 
+            True AS _from0
+        FROM MijnContext.Producten AS T
+    ) AS T1]]></view>
+  <view extent="CodeFirstDatabase.ProductPersoon"><![CDATA[
+    SELECT VALUE -- Constructing ProductPersoon
+        [CodeFirstDatabaseSchema.ProductPersoon](T1.[ProductPersoon.Product_Id], T1.[ProductPersoon.Persoon_Id])
+    FROM (
+        SELECT 
+            Key(T.Product_Klanten_Source).Id AS [ProductPersoon.Product_Id], 
+            Key(T.Product_Klanten_Target).Id AS [ProductPersoon.Persoon_Id], 
+            True AS _from0
+        FROM MijnContext.Product_Klanten AS T
+    ) AS T1]]></view>
+  <view extent="MijnContext.Personen"><![CDATA[
+    SELECT VALUE -- Constructing Personen
+        [CodeFirstDemo2NuInHetEchie.Persoon](T1.Persoon_Id, T1.Persoon_Naam, T1.Persoon_Geboortedatum, T1.Persoon_Email)
+    FROM (
+        SELECT 
+            T.Id AS Persoon_Id, 
+            T.Naam AS Persoon_Naam, 
+            T.Geboortedatum AS Persoon_Geboortedatum, 
+            T.Email AS Persoon_Email, 
+            True AS _from0
+        FROM CodeFirstDatabase.Persoon AS T
+    ) AS T1]]></view>
+  <view extent="MijnContext.Producten"><![CDATA[
+    SELECT VALUE -- Constructing Producten
+        [CodeFirstDemo2NuInHetEchie.Product](T1.Product_Id, T1.Product_Omschrijving2, T1.Product_Prijs)
+    FROM (
+        SELECT 
+            T.Id AS Product_Id, 
+            T.Omschrijving2 AS Product_Omschrijving2, 
+            T.Prijs AS Product_Prijs, 
+            True AS _from0
+        FROM CodeFirstDatabase.Product AS T
+    ) AS T1]]></view>
+  <view extent="MijnContext.Product_Klanten"><![CDATA[
+    SELECT VALUE -- Constructing Product_Klanten
+        [CodeFirstDemo2NuInHetEchie.Product_Klanten](T3.[Product_Klanten.Product_Klanten_Source], T3.[Product_Klanten.Product_Klanten_Target])
+    FROM (
+        SELECT -- Constructing Product_Klanten_Source
+            CreateRef(MijnContext.Producten, row(T2.[Product_Klanten.Product_Klanten_Source.Id]), [CodeFirstDemo2NuInHetEchie.Product]) AS [Product_Klanten.Product_Klanten_Source], 
+            T2.[Product_Klanten.Product_Klanten_Target]
+        FROM (
+            SELECT -- Constructing Product_Klanten_Target
+                T1.[Product_Klanten.Product_Klanten_Source.Id], 
+                CreateRef(MijnContext.Personen, row(T1.[Product_Klanten.Product_Klanten_Target.Id]), [CodeFirstDemo2NuInHetEchie.Persoon]) AS [Product_Klanten.Product_Klanten_Target]
+            FROM (
+                SELECT 
+                    T.Product_Id AS [Product_Klanten.Product_Klanten_Source.Id], 
+                    T.Persoon_Id AS [Product_Klanten.Product_Klanten_Target.Id], 
+                    True AS _from0
+                FROM CodeFirstDatabase.ProductPersoon AS T
+            ) AS T1
+        ) AS T2
+    ) AS T3]]></view>
+</views>
