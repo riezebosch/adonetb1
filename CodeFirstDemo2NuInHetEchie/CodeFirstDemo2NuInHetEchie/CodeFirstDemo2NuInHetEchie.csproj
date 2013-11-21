@@ -72,6 +72,10 @@
     <Compile Include="Migrations\201311201447498_Omschrijving2.Designer.cs">
       <DependentUpon>201311201447498_Omschrijving2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201311210907599_Pluralization.cs" />
+    <Compile Include="Migrations\201311210907599_Pluralization.Designer.cs">
+      <DependentUpon>201311210907599_Pluralization.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +117,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311210907599_Pluralization.resx">
+      <DependentUpon>201311210907599_Pluralization.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MijnContext.Views.xml">
       <DependentUpon>MijnContext.Views.tt</DependentUpon>
     </EmbeddedResource>
