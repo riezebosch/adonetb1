@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="XMLSchema1"
+    targetNamespace="MijnEigenMooieUniekeNamespace-V2"
+    elementFormDefault="qualified"
+    xmlns="MijnEigenMooieUniekeNamespace-V2"
+    xmlns:producten="MijnEigenMooieUniekeNamespace-Producten-V2"       
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:import namespace="MijnEigenMooieUniekeNamespace-Producten-V2" schemaLocation="Producten.xsd" />
+  <xs:element name="Persoon">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Naam" type="xs:string" />
+        <xs:element name="Achternaam" type="xs:string" />
+        <xs:element name="Geboortedatum" type="xs:dateTime" />
+        <xs:element name="Producten" type="producten:Producten" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="Studenten" >
+    <xs:complexContent>
+      <!--<xs:extension base="Persoon">-->
+        
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

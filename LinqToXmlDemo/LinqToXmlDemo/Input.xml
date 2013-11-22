@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Persoon xmlns="MijnEigenMooieUniekeNamespace-V2">
+  <Naam>Manuel</Naam>
+  <Achternaam>Riezebosch</Achternaam>
+  <Geboortedatum>1982-04-05</Geboortedatum>
+  <Producten xmlns="MijnEigenMooieUniekeNamespace-Producten-V2">
+    <Product>
+      <Naam>Printer</Naam>
+      <Prijs>153</Prijs>
+    </Product>
+    <Product>
+      <Naam>Muis</Naam>
+      <!--<Prijs>19.99</Prijs>-->
+    </Product>
+    <Product>
+      <Naam>Telefoon</Naam>
+      <Prijs>699</Prijs>
+    </Product>
+  </Producten>
+</Persoon>
