@@ -65,8 +65,8 @@ namespace WcfDataServiceDemo
             base.Seed(context);
             context.Personen.Add(new Persoon
             {
-                Naam = "Manuel",
-                Geboortedatum = new DateTime(1982, 5, 4),
+                Naam = "Kees",
+                Geboortedatum = new DateTime(1956, 5, 4),
                 Email = "mriezebosch@gmail.com",
                 Producten = new List<Product>
                 {

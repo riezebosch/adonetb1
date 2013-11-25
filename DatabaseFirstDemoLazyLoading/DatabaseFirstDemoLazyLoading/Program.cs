@@ -44,7 +44,7 @@ namespace DatabaseFirstDemoLazyLoading
             //{
             //    entities.People.Add(new Person
             //    {
-            //        FirstName = "Manuel",
+            //        FirstName = "Kees",
             //        LastName = "Riezebosch",
             //        HireDate = new DateTime(2007, 03, 01),
             //        Location = "Veenendaal",

@@ -15,12 +15,12 @@ namespace ConcurrencyDemo
             using (new TransactionScope())
             using (var entities = new SchoolEntities())
             {
-                var person = entities.People.SingleOrDefault(p => p.FirstName == "Manuel");
+                var person = entities.People.SingleOrDefault(p => p.FirstName == "Kees");
                 person.HireDate = person.HireDate.Value.AddDays(1);
 
                 using (var stiekem = new SchoolEntities())
                 {
-                    var temp = stiekem.People.SingleOrDefault(p => p.FirstName == "Manuel");
+                    var temp = stiekem.People.SingleOrDefault(p => p.FirstName == "Kees");
                     temp.FirstName = "TEMP";
 
                     stiekem.SaveChanges();

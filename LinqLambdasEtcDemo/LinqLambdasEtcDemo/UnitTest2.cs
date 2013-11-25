@@ -28,8 +28,8 @@ namespace LinqLambdasEtcDemo
         {
             var people = new List<Person>
             {
-                new Person { Name = "Manuel", Age = 31 },
-                new Person { Name = "Ezra", Age = 4 }
+                new Person { Name = "Kees", Age = 31 },
+                new Person { Name = "klaas", Age = 4 }
             };
 
             var result = people.Where(p => p.Age > 4).Select(p => p.Name);

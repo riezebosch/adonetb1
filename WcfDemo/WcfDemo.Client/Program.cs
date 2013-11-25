@@ -13,7 +13,7 @@ namespace WcfDemo.Client
             var client = new MijnWcfService.MijnWcfServiceClient();
             client.DoWork(new MijnWcfService.Persoon
             {
-                Naam = "Manuel",
+                Naam = "Kees",
                 Leeftijd = 31,
                 Salaris = -1
             });

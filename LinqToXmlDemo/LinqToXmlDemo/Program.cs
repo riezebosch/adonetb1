@@ -33,14 +33,14 @@ namespace LinqToXmlDemo
             var 
                 doc2 = new XDocument(
                     new XElement(xmlns + "Persoon",
-                        new XElement(xmlns + "Naam", "Ezra"),
+                        new XElement(xmlns + "Naam", "klaas"),
                         new XElement(xmlns + "Achternaam", "Riezebosch"),
                         new XElement(xmlns + "Geboortedatum", new DateTime(2009,11,9).ToString("yyyy-MM-dd")),
                         new XElement(producten + "Producten",
                             new XElement(producten + "Product",
                                 new XElement(producten + "Naam", "Printer"),
                                 new XElement(producten + "Prijs", 145m)))));
-            doc2.Save("Ezra.xml");
+            doc2.Save("klaas.xml");
 
 
             var persoon = new Persoon

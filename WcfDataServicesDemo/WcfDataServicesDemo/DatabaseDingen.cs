@@ -65,8 +65,8 @@ namespace WcfDataServicesDemo
 
             var manuel = new Persoon
             {
-                Naam = "Manuel",
-                Geboortedatum = new DateTime(1982, 4, 5),
+                Naam = "Kees",
+                Geboortedatum = new DateTime(1956, 4, 5),
                 Email = "mriezebosch@gmail.com",
             };
 
@@ -87,15 +87,15 @@ namespace WcfDataServicesDemo
             manuel.Producten.Add(muis);
             context.Personen.Add(manuel);
 
-            var ezra = new Persoon
+            var klaas = new Persoon
             {
-                Naam = "Ezra",
-                Geboortedatum = new DateTime(2009, 11, 9),
+                Naam = "klaas",
+                Geboortedatum = new DateTime(2004, 1, 9),
                 Email = "NA"
             };
 
-            ezra.Producten.Add(muis);
-            context.Personen.Add(ezra);
+            klaas.Producten.Add(muis);
+            context.Personen.Add(klaas);
         }
     }
 }
