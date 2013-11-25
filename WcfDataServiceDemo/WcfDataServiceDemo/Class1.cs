@@ -67,7 +67,7 @@ namespace WcfDataServiceDemo
             {
                 Naam = "Kees",
                 Geboortedatum = new DateTime(1956, 5, 4),
-                Email = "mriezebosch@gmail.com",
+                Email = "mveenstra@gmail.com",
                 Producten = new List<Product>
                 {
                     new Product { Omschrijving2 = "Printer", Prijs = 199m },

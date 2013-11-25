@@ -67,7 +67,7 @@ namespace WebApiDemo2
             {
                 Naam = "Kees",
                 Geboortedatum = new DateTime(1956, 4, 5),
-                Email = "mriezebosch@gmail.com",
+                Email = "mveenstra@gmail.com",
             };
 
             var printer = new Product

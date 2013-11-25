@@ -34,7 +34,7 @@ namespace LinqToXmlDemo
                 doc2 = new XDocument(
                     new XElement(xmlns + "Persoon",
                         new XElement(xmlns + "Naam", "klaas"),
-                        new XElement(xmlns + "Achternaam", "Riezebosch"),
+                        new XElement(xmlns + "Achternaam", "veenstra"),
                         new XElement(xmlns + "Geboortedatum", new DateTime(2009,11,9).ToString("yyyy-MM-dd")),
                         new XElement(producten + "Producten",
                             new XElement(producten + "Product",
@@ -45,23 +45,23 @@ namespace LinqToXmlDemo
 
             var persoon = new Persoon
             {
-                Naam = "Jaël",
-                Achternaam = "Riezebosch",
-                Geboortedatum = new DateTime(2012, 5,14),
+                Naam = "Freddy",
+                Achternaam = "Amstel",
+                Geboortedatum = new DateTime(2011, 5,14),
                 Producten = new Producten
                 { 
                     new Product { Naam = "Winkelwagentje", Prijs = 5m } 
                 }
             };
 
-            using (var stream = File.Create("Jaël.xml"))
+            using (var stream = File.Create("Test.xml"))
             {
                 var ser = new DataContractSerializer(typeof(Persoon));
                 ser.WriteObject(stream, persoon);
             }
 
             Persoon inlezen = null;
-            using (var stream = File.OpenRead("Jaël.xml"))
+            using (var stream = File.OpenRead("Test.xml"))
             {
                 var ser = new DataContractSerializer(typeof(Persoon));
                 inlezen = (Persoon)ser.ReadObject(stream);
